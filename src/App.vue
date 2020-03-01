@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <quiz-body v-if="questions.length" :currentQuestion="questions[index]"
-    :next="next"></quiz-body>
+    <Header :numCorrect="numCorrect" :numTotal="numTotal"></Header>
+    <quiz-body
+      v-if="questions.length"
+      :currentQuestion="questions[index]"
+      :next="next"
+      :increment="increment"
+    ></quiz-body>
   </div>
 </template>
 
@@ -20,12 +24,20 @@ export default {
   data() {
     return {
       questions: [],
-      index: 0
+      index: 0,
+      numCorrect: 0,
+      numTotal: 0
     };
   },
   methods: {
     next() {
       this.index++;
+    },
+    increment(isCorrect) {
+      if (isCorrect) {
+        this.numCorrect++;
+      }
+      this.numTotal++;
     }
   },
 
